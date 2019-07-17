@@ -2,7 +2,7 @@ package ca.jrvs.apps.trading.model.config;
 
 public class MarketDataConfig {
     private String Host = "https://cloud.iexapis.com/v1";
-    private String token = "pk_3ae432724a444b659e1707c0fd8901c7";
+    private String token = System.getenv("IexHost");
 
     public String getHost() {
         return Host;
