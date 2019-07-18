@@ -11,12 +11,16 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
+import javax.activation.DataSource;
+
 
 @SpringBootApplication(exclude={JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 
 public class Application implements CommandLineRunner {
     private AppConfig appConfig;
     private MarketDataDao dao;
+  //  @Autowired
+    //private DataSource datasource;
     @Autowired
     public Application(AppConfig appConfig, MarketDataDao dao){
         this.appConfig= appConfig;
@@ -29,6 +33,6 @@ public class Application implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-     dao.findIexQouteByTicker("aapl");
+    // dao.findIexQouteByTicker("aapl");
     }
 }
