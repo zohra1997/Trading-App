@@ -2,9 +2,9 @@ package ca.jrvs.apps.trading.model.Domain;
 
 public class Qoute implements Entity <String> {
         private Double askPrice;
-        private Integer askSize;
+        private long askSize;
         private Double bidPrice;
-        private Integer bidSize;
+        private long bidSize;
         private String Id;
         private Double lastPrice;
         private String ticker;
@@ -17,11 +17,11 @@ public class Qoute implements Entity <String> {
             this.askPrice = askPrice;
         }
 
-        public Integer getAskSize() {
+        public long  getAskSize() {
             return askSize;
         }
 
-        public void setAskSize(Integer askSize) {
+        public void setAskSize(long askSize) {
             this.askSize = askSize;
         }
 
@@ -33,11 +33,11 @@ public class Qoute implements Entity <String> {
             this.bidPrice = bidPrice;
         }
 
-        public Integer getBidSize() {
+        public long getBidSize() {
             return bidSize;
         }
 
-        public void setBidSize(Integer bidSize) {
+        public void setBidSize(long bidSize) {
             this.bidSize = bidSize;
         }
 
@@ -65,7 +65,7 @@ public class Qoute implements Entity <String> {
         }
 
         @Override
-        public void setId(String s) {
+        public void setId( String s) {
             this.Id = s;
 
         }

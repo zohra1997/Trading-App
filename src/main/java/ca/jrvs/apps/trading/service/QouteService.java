@@ -10,19 +10,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class QuoteService {
+public class QouteService {
 
     private QouteDao quoteDao;
     private MarketDataDao marketDataDao;
 
     @Autowired
-    public QuoteService(QouteDao quoteDao, MarketDataDao marketDataDao) {
+    public QouteService(QouteDao quoteDao, MarketDataDao marketDataDao) {
         this.quoteDao = quoteDao;
         this.marketDataDao = marketDataDao;
     }
@@ -33,7 +35,16 @@ public class QuoteService {
      * Make sure set a default value for number field(s).
      */
     public static Qoute buildQuoteFromIexQuote(IexQoute iexQuote) {
-        return null;
+        Qoute qoute = null;
+
+        qoute.setAskPrice(iexQuote.getIexAskPrice());
+        qoute.setAskSize(iexQuote.getIexAskSize());
+        qoute.setBidPrice(iexQuote.getIexBidPrice());
+        qoute.setBidSize(iexQuote.getIexBidSize());
+        qoute.setLastPrice(iexQuote.getLatestPrice());
+        qoute.setTicker(iexQuote.getSymbol());
+
+        return qoute;
     }
 
     /**
@@ -48,8 +59,15 @@ public class QuoteService {
      * @throws IllegalArgumentException for invalid input
      */
     public void initQuotes(List<String> tickers) {
+        List<IexQoute> iexQoutes = tickers.stream()
+                .map(marketDataDao::findIexQouteByTicker).collect(Collectors.toList());
+        List<Qoute> qoutes = iexQoutes.stream().map(QouteService::buildQuoteFromIexQuote).collect(Collectors.toList());
+        for (Qoute q: qoutes){
+            if (!quoteDao.existrById(q.getId())){
+                quoteDao.save(q);
+            }
+        }
 
-        //buildQuoteFromIexQuote helper method is used here
     }
 
     /**
@@ -61,6 +79,7 @@ public class QuoteService {
      * @throws IllegalArgumentException for invalid input
      */
     public void initQuote(String ticker) {
+
         initQuotes(Collections.singletonList(ticker));
     }
 
@@ -77,5 +96,10 @@ public class QuoteService {
      * @throws IllegalArgumentException for invalid input
      */
     public void updateMarketData() {
+        List<String> tickers = (quoteDao.ListOfQoutes()).
+                stream().map(Qoute::getTicker).collect(Collectors.toList());
+        List<IexQoute>iexQoutes = tickers.stream().map(marketDataDao::findIexQouteByTicker).collect(Collectors.toList());
+        List<Qoute> qoutes = iexQoutes.stream().map(QouteService::buildQuoteFromIexQuote).collect(Collectors.toList());
+        quoteDao.updateQoutes(qoutes);
     }
 }
