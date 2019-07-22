@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,31 +31,32 @@ public class  QouteDao  implements CrudRepository<Qoute,String>{
 
     @Autowired
     public QouteDao(DataSource dataSource){
-        jdbcTemplate= new JdbcTemplate((javax.sql.DataSource) dataSource);
-        jdbcInsert = new SimpleJdbcInsert((javax.sql.DataSource) dataSource).withTableName(TABLE_NAME);
+        jdbcTemplate= new JdbcTemplate(dataSource);
+        jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME);
 
     }
 
     @Override
     public Qoute save(Qoute entity) {
-        Qoute qoute = null;
-
-            SqlParameterSource parameterSource = new  BeanPropertySqlParameterSource(entity);
-           Number givenId = jdbcInsert.executeAndReturnKey(parameterSource);
-            return qoute;
+        String sql = "insert into quote (ticker, last_price, bid_price, bid_size, ask_price, ask_size) " +
+                "values (?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,entity.getTicker(), entity.getLastPrice(),entity.getBidPrice(),entity.getBidSize()
+        ,entity.getAskPrice(),entity.getAskSize());
+        Qoute qoute = findById(entity.getTicker());
+        return qoute;
 
     }
 
     @Override
     public Qoute findById(String id) {
        Qoute qoute = null;
-       qoute =jdbcTemplate.queryForObject("Select * from"+TABLE_NAME+"where "+ ID_NAME +"=?",
+       qoute =jdbcTemplate.queryForObject("Select * from "+TABLE_NAME+" where "+ ID_NAME +" =?",
                BeanPropertyRowMapper.newInstance(Qoute.class),id);
        return qoute;
     }
 
     public List<Qoute> ListOfQoutes (){
-        String Sql = "Select * from"+TABLE_NAME;
+        String Sql = "Select * from "+TABLE_NAME;
         List<Qoute> qoutes = jdbcTemplate.query(Sql,BeanPropertyRowMapper.newInstance(Qoute.class));
         return qoutes;
 
@@ -63,13 +64,10 @@ public class  QouteDao  implements CrudRepository<Qoute,String>{
 
     @Override
     public boolean existrById(String id) {
-      Qoute qoute = null;
-      qoute = jdbcTemplate.queryForObject("Select * from "+TABLE_NAME+"where" + ID_NAME+"="+id,
-              BeanPropertyRowMapper.newInstance(Qoute.class));
-      if (qoute == null){
-        throw new IllegalArgumentException("This ID does not exist");
-      }
-      return true;
+
+       return false ;
+
+
     }
 
     @Override
@@ -101,6 +99,8 @@ public class  QouteDao  implements CrudRepository<Qoute,String>{
            throw new IncorrectResultSizeDataAccessException("Number of rows:",totalRow,qoutes.size());
        }
        }
+
+
 
 
     }

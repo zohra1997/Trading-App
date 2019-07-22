@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading;
 
+
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -8,47 +10,57 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.activation.DataSource;
 
 @Configuration
-
 public class AppConfig {
+
     private Logger logger = LoggerFactory.getLogger(AppConfig.class);
-    private String Iex_Host ;
-    private String Driver_class="org.postgresql.Driver";
-    private String url = System.getenv("PSQL_URL");
-    private String user = System.getenv("PSQL_USER");
-    private String password = System.getenv("PSQL_PASSWORD");
+    private String iex_host= "https://cloud.iexapis.com/v1";
 
-
-
+    @Bean
+    public PlatformTransactionManager txManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 
     @Bean
     public MarketDataConfig marketDataConfig() {
-        return  new MarketDataConfig();
-
+//        if (StringUtil.isEmpty(System.getenv("IEX_PUB_TOKEN")) || StringUtil.isEmpty(iex_host)) {
+//            throw new IllegalArgumentException("ENV:IEX_PUB_TOKEN or property:iex_host is not set");
+//        }
+        MarketDataConfig marketDataConfig = new MarketDataConfig();
+        marketDataConfig.setToken(System.getenv("IexHost"));
+        marketDataConfig.setHost(iex_host);
+        return marketDataConfig;
     }
 
     @Bean
-    public BasicDataSource dataSource() {
+    public DataSource dataSource() {
+
+        String jdbcUrl;
+        String user;
+        String password;
+        jdbcUrl = System.getenv("PSQL_URL");
+        user = System.getenv("PSQL_USER");
+        password = System.getenv("PSQL_PASSWORD");
+        logger.error("JDBC:" + jdbcUrl);
+
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName(Driver_class);
-        basicDataSource.setUrl(url);
+        basicDataSource.setDriverClassName("org.postgresql.Driver");
+        basicDataSource.setUrl(jdbcUrl);
         basicDataSource.setUsername(user);
         basicDataSource.setPassword(password);
-        return  basicDataSource;
+        return basicDataSource;
     }
 
+
     @Bean
-    public HttpClientConnectionManager httpClientConnectionManager(){
+    public HttpClientConnectionManager httpClientConnectionManager() {
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setMaxTotal(50);
         cm.setDefaultMaxPerRoute(50);
         return cm;
-
     }
-
 }

@@ -35,8 +35,8 @@ public class QouteService {
      * Make sure set a default value for number field(s).
      */
     public static Qoute buildQuoteFromIexQuote(IexQoute iexQuote) {
-        Qoute qoute = null;
-
+        Qoute qoute = new Qoute();
+        qoute.setId(iexQuote.getSymbol());
         qoute.setAskPrice(iexQuote.getIexAskPrice());
         qoute.setAskSize(iexQuote.getIexAskSize());
         qoute.setBidPrice(iexQuote.getIexBidPrice());
@@ -63,7 +63,7 @@ public class QouteService {
                 .map(marketDataDao::findIexQouteByTicker).collect(Collectors.toList());
         List<Qoute> qoutes = iexQoutes.stream().map(QouteService::buildQuoteFromIexQuote).collect(Collectors.toList());
         for (Qoute q: qoutes){
-            if (!quoteDao.existrById(q.getId())){
+            if (!quoteDao.existrById(q.getTicker())){
                 quoteDao.save(q);
             }
         }

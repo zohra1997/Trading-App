@@ -69,5 +69,18 @@ public class Qoute implements Entity <String> {
             this.Id = s;
 
         }
+
+    @Override
+    public String toString() {
+        return "Qoute{" +
+                "askPrice=" + askPrice +
+                ", askSize=" + askSize +
+                ", bidPrice=" + bidPrice +
+                ", bidSize=" + bidSize +
+                ", Id='" + Id + '\'' +
+                ", lastPrice=" + lastPrice +
+                ", ticker='" + ticker + '\'' +
+                '}';
     }
+}
 
