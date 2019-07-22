@@ -4,13 +4,10 @@ import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.dao.QouteDao;
 import ca.jrvs.apps.trading.model.Domain.IexQoute;
 import ca.jrvs.apps.trading.model.Domain.Qoute;
-import ca.jrvs.apps.trading.model.Domain.IexQoute;
-import ca.jrvs.apps.trading.model.Domain.Qoute;
+
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,14 +33,13 @@ public class QouteService {
      */
     public static Qoute buildQuoteFromIexQuote(IexQoute iexQuote) {
         Qoute qoute = new Qoute();
+        qoute.setTicker(iexQuote.getSymbol());
         qoute.setId(iexQuote.getSymbol());
         qoute.setAskPrice(iexQuote.getIexAskPrice());
         qoute.setAskSize(iexQuote.getIexAskSize());
         qoute.setBidPrice(iexQuote.getIexBidPrice());
         qoute.setBidSize(iexQuote.getIexBidSize());
         qoute.setLastPrice(iexQuote.getLatestPrice());
-        qoute.setTicker(iexQuote.getSymbol());
-
         return qoute;
     }
 
@@ -63,9 +59,11 @@ public class QouteService {
                 .map(marketDataDao::findIexQouteByTicker).collect(Collectors.toList());
         List<Qoute> qoutes = iexQoutes.stream().map(QouteService::buildQuoteFromIexQuote).collect(Collectors.toList());
         for (Qoute q: qoutes){
-            if (!quoteDao.existrById(q.getTicker())){
-                quoteDao.save(q);
-            }
+            if (quoteDao.existById(q.getTicker())){
+                throw new IllegalArgumentException("This ticker already exist.");
+
+            }else
+            quoteDao.save(q);
         }
 
     }

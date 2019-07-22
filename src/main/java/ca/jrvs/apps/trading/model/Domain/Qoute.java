@@ -1,13 +1,14 @@
 package ca.jrvs.apps.trading.model.Domain;
 
 public class Qoute implements Entity <String> {
+        private String ticker;
         private Double askPrice;
         private long askSize;
         private Double bidPrice;
         private long bidSize;
         private String Id;
         private Double lastPrice;
-        private String ticker;
+
 
         public Double getAskPrice() {
             return askPrice;
@@ -73,13 +74,12 @@ public class Qoute implements Entity <String> {
     @Override
     public String toString() {
         return "Qoute{" +
-                "askPrice=" + askPrice +
+                "  ticker='" + ticker + '\'' +
+                ", askPrice=" + askPrice +
                 ", askSize=" + askSize +
                 ", bidPrice=" + bidPrice +
                 ", bidSize=" + bidSize +
-                ", Id='" + Id + '\'' +
                 ", lastPrice=" + lastPrice +
-                ", ticker='" + ticker + '\'' +
                 '}';
     }
 }

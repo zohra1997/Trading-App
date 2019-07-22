@@ -65,6 +65,7 @@ public class QouteController {
 
     @GetMapping (path = "/dailyList")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public List<Qoute> getDailyList() {
       try {
           return qouteDao.ListOfQoutes();
