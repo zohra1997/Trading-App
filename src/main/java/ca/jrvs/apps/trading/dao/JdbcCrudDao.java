@@ -31,11 +31,7 @@ public abstract class JdbcCrudDao <E extends Entity,ID> implements CrudRepositor
     }
 
     @Override
-    public E findById (ID id){
-        return findById(getIdName() , id , getEntityClass());
-    }
-
-
+    public E findById (ID id){ return findById(getIdName() , id , getEntityClass()); }
     @SuppressWarnings("unchecked")
     public E findById(String idName, ID id, Class clazz){
       E t = null;
