@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.model.Domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Trader implements Entity<Integer> {

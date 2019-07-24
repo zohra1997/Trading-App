@@ -27,9 +27,6 @@ public class AppConfig {
 
     @Bean
     public MarketDataConfig marketDataConfig() {
-//        if (StringUtil.isEmpty(System.getenv("IEX_PUB_TOKEN")) || StringUtil.isEmpty(iex_host)) {
-//            throw new IllegalArgumentException("ENV:IEX_PUB_TOKEN or property:iex_host is not set");
-//        }
         MarketDataConfig marketDataConfig = new MarketDataConfig();
         marketDataConfig.setToken(System.getenv("IexHost"));
         marketDataConfig.setHost(iex_host);

@@ -19,26 +19,12 @@ import javax.sql.DataSource;
 
 @SpringBootApplication(exclude = {JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class Application implements CommandLineRunner {
-/*    private AppConfig appConfig;
-    private MarketDataDao dao;
-    private DataSource datasource;
-    private QouteService qouteService;*/
-/*
-
-    @Autowired
-    public Application(AppConfig appConfig, MarketDataDao dao, DataSource dataSource) {
-        this.appConfig = appConfig;
-        this.dao = dao;
-        this.datasource = dataSource;
-    }
-*/
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
         app.run(args);
 
     }
-
     @Override
     public void run(String... args) throws Exception {
 

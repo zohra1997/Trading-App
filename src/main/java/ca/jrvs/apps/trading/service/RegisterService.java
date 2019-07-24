@@ -83,7 +83,7 @@ public class RegisterService {
             throw new IllegalArgumentException("Account balance should be zero");
         }
         List<Position> position = positionDao.findById(account.getId());
-        if (position!=null){
+        if (position.size()!=0){
             throw new IllegalArgumentException("Positions are not empty");
         }
         securityOrderDao.deleteById(account.getId());
@@ -98,7 +98,7 @@ public class RegisterService {
         }
         if (trader.getDob()==null)
         {
-            throw new IllegalArgumentException("Date of birth can not be ampty");
+            throw new IllegalArgumentException("Date of birth can not be empty");
         }
         if (trader.getEmail()==null)
         {

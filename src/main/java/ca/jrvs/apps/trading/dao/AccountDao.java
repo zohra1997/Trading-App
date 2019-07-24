@@ -60,18 +60,18 @@ public class AccountDao extends JdbcCrudDao<Account, Integer> {
 
     }
 
-    public Account update (Integer id, Double amount){
-        String sql = "update "+TABLE_NAME+" set amount = ? where id=?";
-        if (super.existById(id)){
-           int row = jdbcTemplate.update(sql, amount,id);
-           if (row != 1){
-               throw new IncorrectResultSizeDataAccessException(1,row);
-           }
-           return findById(id);
+    public Account updateAmountById(Integer id, Double amount) {
+        if (super.existById(id)) {
+            String sql = "UPDATE " + TABLE_NAME + " SET amount=? WHERE id=?";
+            int row = jdbcTemplate.update(sql, amount, id);
+            logger.debug("Update amount row=" + row);
+            if (row != 1) {
+                throw new IncorrectResultSizeDataAccessException(1, row);
+            }
+            return findById(id);
         }
-        else {
-            throw new ResourceNotFoundException("Id doesnot exist");
-        }
+        return null;
     }
-
 }
+
+

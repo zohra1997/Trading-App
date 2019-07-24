@@ -3,7 +3,7 @@ package ca.jrvs.apps.trading.model.Domain;
 public class SecurityOrder implements Entity<Integer> {
     private Integer id;
     private Integer accountId;
-    private String status;
+    private orderStatus status;
     private Integer size;
     private Double price;
     private String notes;
@@ -26,11 +26,11 @@ public class SecurityOrder implements Entity<Integer> {
         this.accountId = accountId;
     }
 
-    public String getStatus() {
+    public orderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(orderStatus status) {
         this.status = status;
     }
 

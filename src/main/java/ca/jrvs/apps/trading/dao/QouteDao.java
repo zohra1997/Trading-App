@@ -68,43 +68,12 @@ public class  QouteDao extends JdbcCrudDao <Qoute, String> {
 
     }
 
-//    @Override
-//    public Qoute findById(String id) {
-//       Qoute qoute = null;
-//       qoute =jdbcTemplate.queryForObject("Select * from "+TABLE_NAME+" where "+ ID_NAME +" =?",
-//               BeanPropertyRowMapper.newInstance(Qoute.class),id);
-//       return qoute;
-//    }
-
     public List<Qoute> ListOfQoutes (){
         String Sql = "Select * from "+TABLE_NAME;
         List<Qoute> qoutes = jdbcTemplate.query(Sql,BeanPropertyRowMapper.newInstance(Qoute.class));
         return qoutes;
 
     }
-
-//    @Override
-//    public boolean existById(String id) {
-//        if (id == null){
-//            throw new IllegalArgumentException("Id can't be null");
-//        }
-//        Integer count = jdbcTemplate.queryForObject(
-//                "select count (*) from " + TABLE_NAME+ " where "+ ID_NAME + "= ? ",Integer.class,id);
-//
-//       return count != null && count !=0;
-//
-//
-//    }
-
-//    @Override
-//    public void deleteById(String id) {
-//        if (id == null){
-//            throw new IllegalArgumentException("ID can not be Null");
-//        }
-//        String sql = "Delete from"+ TABLE_NAME+"where"+ID_NAME+"="+id;
-//        jdbcTemplate.update(sql);
-//
-//    }
 
     public void updateQoutes (List<Qoute> qoutes) throws IncorrectResultSizeDataAccessException {
         String sql = "update "+ TABLE_NAME+ " set last_price = ?, bid_price = ?, bid_size = ?, ask_price =?, ask_size=? where "
