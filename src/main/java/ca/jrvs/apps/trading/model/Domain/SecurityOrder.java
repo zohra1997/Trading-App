@@ -69,7 +69,6 @@ public class SecurityOrder implements Entity<Integer> {
     @Override
     public String toString() {
         return "SecurityOrder{" +
-                "id=" + id +
                 ", accountId=" + accountId +
                 ", status='" + status + '\'' +
                 ", size=" + size +
