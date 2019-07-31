@@ -48,7 +48,7 @@ public class OrderServiceTest {
     public void initialize (){
         orderDto = new MarketOrderDto();
         orderDto.setAccountId(3);
-        orderDto.setSize(-2);
+        orderDto.setSize(1);
         orderDto.setTicker("TSLA");
 
         when(quoteDao.existById(orderDto.getTicker())).thenReturn(true);

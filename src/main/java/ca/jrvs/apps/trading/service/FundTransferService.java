@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class FundTransferService {
 
     private AccountDao accountDao;
@@ -48,7 +47,7 @@ public class FundTransferService {
      * - accountDao.updateAmountById
      *
      * @param traderId trader ID
-     * @param fund amount can't be 0
+     * @param fund amount can't be
      * @return updated Account object
      * @throws ca.jrvs.apps.trading.dao.ResourceNotFoundException if ticker is not found from IEX
      * @throws org.springframework.dao.DataAccessException if unable to retrieve data

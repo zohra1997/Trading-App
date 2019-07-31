@@ -100,15 +100,4 @@ public class MarketDataDao {
                 .setConnectionManagerShared(true)
                .build();
     }
-
-
-    public static void main(String[] args) {
-        MarketDataConfig config = new MarketDataConfig();
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(50);
-        cm.setDefaultMaxPerRoute(50);
-        MarketDataDao dao = new MarketDataDao(cm, config);
-        List<String> tickers  = Arrays.asList("aapl","msft");
-        dao.findIexQouteByTicker(tickers);
-    }
 }

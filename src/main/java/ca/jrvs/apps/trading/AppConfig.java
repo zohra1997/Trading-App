@@ -28,7 +28,7 @@ public class AppConfig {
     @Bean
     public MarketDataConfig marketDataConfig() {
         MarketDataConfig marketDataConfig = new MarketDataConfig();
-        marketDataConfig.setToken(System.getenv("IexHost"));
+        marketDataConfig.setToken(System.getenv("IEX_PUB_TOKEN"));
         marketDataConfig.setHost(iex_host);
         return marketDataConfig;
     }
@@ -38,11 +38,12 @@ public class AppConfig {
 
         String jdbcUrl;
         String user;
-        String password;
+        String password ;
         jdbcUrl = System.getenv("PSQL_URL");
         user = System.getenv("PSQL_USER");
         password = System.getenv("PSQL_PASSWORD");
         logger.error("JDBC:" + jdbcUrl);
+
 
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("org.postgresql.Driver");

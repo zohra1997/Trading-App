@@ -5,6 +5,8 @@ import ca.jrvs.apps.trading.dao.QouteDao;
 import ca.jrvs.apps.trading.model.Domain.Qoute;
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.service.QouteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +21,11 @@ import javax.sql.DataSource;
 
 @SpringBootApplication(exclude = {JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class Application implements CommandLineRunner {
+
+    private Logger logger = LoggerFactory.getLogger(Application.class);
+
+    @Autowired
+    private DataSource dataSource;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
