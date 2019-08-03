@@ -49,7 +49,6 @@ public class MarketDataDao {
                 String qouteObject = ((JSONObject)jsonObject.get(value)).get("quote").toString();
                 try {
                     IexQoute iexQoute = mapper.readValue(qouteObject,IexQoute.class);
-
                     qoutes.add(iexQoute);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -78,10 +77,8 @@ public class MarketDataDao {
                         return Body;
                     case 400:
                         throw new ResourceNotFoundException("Not Found");
-
                     default:
                         throw new DataRetrievalFailureException("Unexpected Error:"+response.getStatusLine().getStatusCode());
-
                 }
 
 
