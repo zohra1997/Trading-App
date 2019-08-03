@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ResourceNotFoundException {
+public class ResourceNotFoundException extends Throwable {
     private String s;
     private Logger logger = LoggerFactory.getLogger(ResourceNotFoundException.class);
     public ResourceNotFoundException(String s){

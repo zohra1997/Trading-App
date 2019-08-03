@@ -5,6 +5,7 @@ import ca.jrvs.apps.trading.dao.QouteDao;
 import ca.jrvs.apps.trading.model.Domain.IexQoute;
 import ca.jrvs.apps.trading.model.Domain.Qoute;
 import ca.jrvs.apps.trading.model.Domain.SecurityOrder;
+import ca.jrvs.apps.trading.model.Domain.orderStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +17,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,11 +44,15 @@ public class QouteServiceTest {
 
     @Test
     public void initQuotes() {
-        List<String> tickers = new ArrayList<>();
-        tickers.add("AAPL");
-        List<IexQoute> iexQoutes= new ArrayList<>();
-        when(marketDataDao.findIexQouteByTicker(tickers)).thenReturn(iexQoutes);
-      //  List<Qoute> qoutes =
+//        List<String> tickers = new ArrayList<>();
+//        tickers.add("AAPL");
+//        List<IexQoute> iexQoutes= new ArrayList<>();
+//        when(marketDataDao.findIexQouteByTicker(tickers)).thenReturn(iexQoutes);
+//
+//
+//
+
+
     }
 
     @Test
