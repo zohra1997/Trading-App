@@ -69,6 +69,9 @@ public class DashboardService {
      * @throws IllegalArgumentException for invalid input
      */
     public List<PortfolioView> getProfileViewByTraderId(Integer traderId) {
+        if (!traderDao.existById(traderId)){
+            throw new IllegalArgumentException("Trader with "+traderId+" does not exist.");
+        }
         PortfolioView portfolioView ;
         List<PortfolioView> mylist= new ArrayList<>();
         Account account = accountDao.findByTrader(traderId);
