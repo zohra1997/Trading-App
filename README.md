@@ -1,7 +1,4 @@
----
 
-
----
 
 <h1 id="trading-application">Trading Application</h1>
 <h2 id="introduction">Introduction</h2>
