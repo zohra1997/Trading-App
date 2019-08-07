@@ -44,22 +44,11 @@ public class QouteServiceTest {
 
     @Test
     public void initQuotes() {
-//        List<String> tickers = new ArrayList<>();
-//        tickers.add("AAPL");
-//        List<IexQoute> iexQoutes= new ArrayList<>();
-//        when(marketDataDao.findIexQouteByTicker(tickers)).thenReturn(iexQoutes);
-//
-//
-//
-
+        List<String> tickers = new ArrayList<>();
+        tickers.add("AAPL");
+        List<IexQoute> iexQoutes= new ArrayList<>();
+        when(marketDataDao.findIexQouteByTicker(tickers)).thenReturn(iexQoutes);
 
     }
 
-    @Test
-    public void initQuote() {
-    }
-
-    @Test
-    public void updateMarketData() {
-    }
 }
