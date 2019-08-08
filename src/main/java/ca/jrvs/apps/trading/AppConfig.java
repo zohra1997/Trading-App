@@ -39,18 +39,16 @@ public class AppConfig {
         String jdbcUrl;
         String user;
         String password ;
-        if (!System.getenv("RDS_HOSTNAME").isEmpty()){
-            jdbcUrl="jdbc:postgresql://"+System.getenv("RDS_HOSTNAME")+":"+
-                    System.getenv("RDS_PORT")+"jrvstrading";
-            user = System.getenv("RDS_USER");
-            password= System.getenv("RDS_PASSWORD");
-        }
-        else {
+        String  name = System.getenv("RDS_HOSTNAME");
+        if(name!=null && !name.isEmpty()){
+            jdbcUrl = "jdbc:postgresql://" + System.getenv("RDS_HOSTNAME") + ":" + System.getenv("RDS_PORT") + "/jrvstrading";
+            user = System.getenv("RDS_USERNAME");
+            password = System.getenv("RDS_PASSWORD");
+        } else {
             jdbcUrl = System.getenv("PSQL_URL");
             user = System.getenv("PSQL_USER");
             password = System.getenv("PSQL_PASSWORD");
             logger.error("JDBC:" + jdbcUrl);
-
         }
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("org.postgresql.Driver");
