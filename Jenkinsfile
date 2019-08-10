@@ -38,7 +38,7 @@ pipeline {
 
         stage('Deploy_dev') {
 
-            when { branch 'develop' }
+            when { branch 'developer' }
 
             steps {
 
