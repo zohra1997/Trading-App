@@ -94,6 +94,8 @@ Type the following in your browser or use postman to access the API .<br>
 <h2 id="improvements">Improvements</h2>
 <ol>
 <li>This REST API could be improved by deploying it into a server.</li>
-<li></li>
+<li>An automatic update feature to update daily list every morning.</li>
+<li>Retreive real time data.</li>
+<li>A visual graph to show value change of stocks.</li>
 </ol>
 
