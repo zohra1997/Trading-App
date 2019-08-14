@@ -1,4 +1,7 @@
+---
 
+
+---
 
 <h1 id="trading-application">Trading Application</h1>
 <h2 id="introduction">Introduction</h2>
@@ -93,7 +96,9 @@ Type the following in your browser or use postman to access the API .<br>
 </ul>
 <h2 id="improvements">Improvements</h2>
 <ol>
-<li>This REST API could be improved by deploying it into a server.</li>
-<li></li>
+<li>Deploy the REST API in to a server.</li>
+<li>An automatic update feature to update daily list every morning.</li>
+<li>Retreive real time data.</li>
+<li>A visual graph to show value change of stocks.</li>
 </ol>
 
